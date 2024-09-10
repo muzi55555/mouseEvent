@@ -1,10 +1,12 @@
 import './App.css';
-import MouseEventComponent from './components/MouseEventComponent';
+import Refactor from './components/Refactor';
+// import MouseEventComponent from './components/MouseEventComponent';
 
 function App() {
   return (
     <>
-      <MouseEventComponent />
+      {/* <MouseEventComponent /> */}
+      <Refactor />
     </>
   );
 }
