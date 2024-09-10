@@ -1,7 +1,12 @@
 import './App.css';
+import MouseEventComponent from './components/MouseEventComponent';
 
 function App() {
-  return <></>;
+  return (
+    <>
+      <MouseEventComponent />
+    </>
+  );
 }
 
 export default App;
