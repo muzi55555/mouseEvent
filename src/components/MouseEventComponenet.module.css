@@ -5,6 +5,7 @@
   background: rgba(127, 5, 250, 0.2);
 }
 .contentBox {
+  position: absolute;
   width: 100px;
   height: 100px;
   background: aqua;

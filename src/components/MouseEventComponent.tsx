@@ -7,13 +7,12 @@ interface IPosition {
 }
 
 export default function MouseEventComponent() {
+  const newArr = Array.from({ length: 30 }, (_, i) => i + 1);
   const [mousePosition, setMousePosition] = useState<IPosition>({ x: 0, y: 0 });
 
   const handleMousePosition = (e: MouseEvent) => {
     setMousePosition({ x: e.clientX, y: e.clientY });
   };
-
-  console.log(mousePosition);
 
   useEffect(() => {
     window.addEventListener('mousemove', handleMousePosition);
@@ -23,7 +22,19 @@ export default function MouseEventComponent() {
   }, []);
   return (
     <div className={styles.eventBox}>
-      <div className={styles.contentBox}>마우스이벤트</div>
+      {newArr.map((el) => (
+        <div
+          key={el}
+          className={styles.contentBox}
+          style={{
+            top: `${mousePosition.y}px`,
+            left: `${mousePosition.x}px`,
+            transform: `translate(-50%, -50%)`,
+          }}
+        >
+          마우스 이벤트
+        </div>
+      ))}
     </div>
   );
 }
