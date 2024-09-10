@@ -10,7 +10,26 @@ export default function Refactor() {
   const [mousePosition, setMousePosition] = useState<IPosition>({ x: 0, y: 0 });
   const requestRef = useRef<number>();
 
-  const handleMousePosition = (e: MouseEvent) => {
+  const throttle = (func: any, limit: number) => {
+    let lastFunc: number;
+    let lastRan: number;
+    return function (...args: any[]) {
+      if (!lastRan) {
+        func(...args);
+        lastRan = Date.now();
+      } else {
+        clearTimeout(lastFunc);
+        lastFunc = window.setTimeout(() => {
+          if (Date.now() - lastRan >= limit) {
+            func(...args);
+            lastRan = Date.now();
+          }
+        }, limit - (Date.now() - lastRan));
+      }
+    };
+  };
+
+  const handleMousePosition = throttle((e: MouseEvent) => {
     const updatePosition = () => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
@@ -18,7 +37,7 @@ export default function Refactor() {
       cancelAnimationFrame(requestRef.current);
     }
     requestRef.current = requestAnimationFrame(updatePosition);
-  };
+  }, 10);
 
   useEffect(() => {
     window.addEventListener('mousemove', handleMousePosition);
